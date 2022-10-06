@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
+import { auth, db } from '../shared/firebase'
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { addDoc, collection } from 'firebase/firestore';
+
 
 
 const Container = styled.div`
@@ -57,30 +61,60 @@ const LogIn = styled.div`
 
 
 
-const Siginin = (): JSX.Element =>{
+const Signin = (): JSX.Element =>{
+  const navigate = useNavigate()
+  const id = useRef<HTMLInputElement>(null);
+  const pw = useRef<HTMLInputElement>(null);
+  const name = useRef<HTMLInputElement>(null);
 
- 
-    return(
-        <Container>
-            <Forms>
-                <Title>
-                    회원가입
-                </Title>
-                <TextArea>
-                    <input type="text" placeholder='아이디를 입력해주세요'/>
-                </TextArea>
-                <TextArea>
-                    <input type="password" placeholder='비밀번호를 입력해주세요'/>
-                </TextArea>
-                <Submit>
-                    완료
-                </Submit>
-                <LogIn>
-                    이미 멤버이신가요? <Link to ="/signin" style={{color:"#FFAE6D", fontWeight:'700'}}><u>로그인</u></Link>
-                </LogIn>
-            </Forms>
-        </Container>
-    )
+  const signupFB = async () => {
+    if (id.current !== null && pw.current !== null){
+      const user = await createUserWithEmailAndPassword(auth, id.current.value, pw.current.value)
+      .then(()=>{
+        navigate('/')
+      })
+      .catch((e)=>{
+        const error = e.code
+        if(error === 'auth/invalid-email'){
+          alert('이메일주소를 입력해주세요')
+        } else if (error === 'auth/weak-password'){
+          alert('6자 이상의 비밀번호를 입력해주세요')
+        } else if(error ==='auth/email-already-in-use'){
+          alert('이미 가입된 이메일입니다')
+        }
+      })
+      
+      const user_data = await addDoc(collection(db,'user'),{
+        user_id: id.current.value,
+        name: name.current?.value
+      })  
+    }
+  }
+
+  return(
+    <Container>
+      <Forms>
+        <Title>
+            회원가입
+        </Title>
+        <TextArea>
+            <input type="text" placeholder='이름을 입력해주세요' ref={name}/>
+        </TextArea>
+        <TextArea>
+            <input type="text" placeholder='아이디를 입력해주세요' ref={id}/>
+        </TextArea>
+        <TextArea>
+            <input type="password" placeholder='비밀번호를 입력해주세요' ref={pw}/>
+        </TextArea>
+        <Submit onClick={signupFB}>
+            완료
+        </Submit>
+        <LogIn>
+            이미 멤버이신가요? <Link to ="/" style={{color:"#FFAE6D", fontWeight:'700'}}><u>로그인</u></Link>
+        </LogIn>
+      </Forms>
+    </Container>
+  )
 }
 
-export default Siginin
+export default Signin

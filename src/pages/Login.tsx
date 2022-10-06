@@ -1,6 +1,9 @@
-import React from 'react';
+import React,{useRef} from 'react';
 import styled from 'styled-components'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
+import { auth, db } from '../shared/firebase'
+import { signInWithEmailAndPassword } from "firebase/auth";
+import {getDocs, where, query, collection} from 'firebase/firestore';
 
 import logo from '../img/logo.png'
 
@@ -28,7 +31,7 @@ const TextArea = styled.div`
     width: 300px;
     height: 35px;
     border: 1px solid #ccc;
-    border-radius: 7px;
+    border-radius: 10px;
     margin-bottom: 10px;
     input{
         width: 100%;
@@ -44,7 +47,7 @@ const Submit = styled.div`
     width: 300px;
     height: 35px;
     background: #FFAE6D;
-    border-radius: 7px;
+    border-radius: 10px;
     color: #fff;
     display: flex;
     justify-content: center;
@@ -59,9 +62,35 @@ const SignIn = styled.div`
 `
 
 
-
 const Login = (): JSX.Element =>{
+    const navigate = useNavigate()
+    const id = useRef<HTMLInputElement>(null)
+    const pw = useRef<HTMLInputElement>(null)
 
+    const loginFB = async () =>{
+        if(id.current !== null && pw.current !== null){
+            const user = await signInWithEmailAndPassword(auth, id.current.value, pw.current.value)
+            .then(()=>{
+                navigate('/main')
+                console.log('error')
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                alert(errorCode)
+                console.log(errorCode)
+              });
+
+        // 이메일주소와 회원고유번호인 아이디를 똑같이 만들기
+        const user_docs = await getDocs(
+            query(collection(db, "users"), where("user_id", "==", id.current.value))
+        );
+        console.log(user_docs)
+
+        user_docs.forEach((u) => {
+            console.log(u.data());
+        })
+        }
+    }
  
     return(
         <Container>
@@ -69,12 +98,12 @@ const Login = (): JSX.Element =>{
             </Logo>
             <Forms>
                 <TextArea>
-                    <input type="text" placeholder='아이디를 입력해주세요'/>
+                    <input type="text" placeholder='아이디를 입력해주세요' ref={id}/>
                 </TextArea>
                 <TextArea>
-                    <input type="password" placeholder='비밀번호를 입력해주세요'/>
+                    <input type="password" placeholder='비밀번호를 입력해주세요' ref={pw}/>
                 </TextArea>
-                <Submit>
+                <Submit onClick={loginFB}>
                     로그인
                 </Submit>
                 <SignIn>
