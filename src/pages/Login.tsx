@@ -28,7 +28,7 @@ const TextArea = styled.div`
     width: 300px;
     height: 35px;
     border: 1px solid #ccc;
-    border-radius: 10px;
+    border-radius: 7px;
     margin-bottom: 10px;
     input{
         width: 100%;
@@ -44,7 +44,7 @@ const Submit = styled.div`
     width: 300px;
     height: 35px;
     background: #FFAE6D;
-    border-radius: 10px;
+    border-radius: 7px;
     color: #fff;
     display: flex;
     justify-content: center;
