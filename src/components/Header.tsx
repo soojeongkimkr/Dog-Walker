@@ -6,31 +6,25 @@ import { onAuthStateChanged, signOut, User } from 'firebase/auth';
 
 import {BsChatDotsFill, BsChatDots} from 'react-icons/bs'
 
+import Geolocation from './Geolocation';
 
 const Container = styled.div`
   position: fixed;
-  display: flex;
-  width: 100vw;
-  height: 45px;
-  top:0;
+  width: 500px;
   background: #fff;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid rgba(230, 230, 230);
 `
-const Title = styled.div`
-  flex-grow: 1;
+const Inner = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   height: 45px;
-  background: #fff;
+  margin: 0 30px;
 `
 const Item = styled.div`
-  flex-grow: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 45px;
-  background: #fff;
 `
 
 const Header = () => {
@@ -50,28 +44,24 @@ const Header = () => {
 
   return(
     <Container>
-      <Title>
-
-      </Title>
-      {is_login?
-      <>
-      {/* <Item>
-        <Link to="/tips">
-          <BsChatDotsFill size="24" color="#333" style={{marginTop:'2px'}}/>
-        </Link>
-      </Item> */}
-      <Item>
-        <Link to="/tips">
-          <BsChatDots size="26" color="#333"/>
-        </Link>
-      </Item>
-      </>
-      :
-      <>
-      로그인
-      </>
-      }
-      
+      <Inner>
+        <Geolocation/>
+        {is_login?
+        <>
+        <Item>
+          <Link to="/chat">
+            <BsChatDots size="24" color="#333"/>
+          </Link>
+        </Item>
+        </>
+        :
+        <>
+        <Item>
+        로그인
+        </Item>
+        </>
+        }
+      </Inner>
     </Container>
   )
 }

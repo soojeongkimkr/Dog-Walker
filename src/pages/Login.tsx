@@ -14,6 +14,7 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: #fff;
 `
 const Logo = styled.div`
     width: 120px;

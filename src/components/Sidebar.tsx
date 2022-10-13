@@ -9,11 +9,11 @@ import {AiOutlineHome} from 'react-icons/ai'
 const Container = styled.div`
   position: fixed;
   display: flex;
-  width: 100vw;
+  width: 500px;
   height: 45px;
   bottom:0;
   background: #fff;
-  border-top: 1px solid #939393;
+  border-top: 1px solid rgba(230, 230, 230);
 `
 const Item = styled.div`
   flex-grow: 1;
