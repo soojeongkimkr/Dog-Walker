@@ -8,8 +8,7 @@ import {getDocs, where, query, collection} from 'firebase/firestore';
 import logo from '../img/logo.png'
 
 const Container = styled.div`
-    width: 100vw;
-    height: 100vh;
+    height: 80vh;
     display: flex;
     flex-direction: column;
     justify-content: center;

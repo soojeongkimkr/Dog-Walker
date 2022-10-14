@@ -11,23 +11,21 @@ import Tips from './pages/Tips';
 import Chat from './pages/Chat';
 import Main from './pages/Main';
 import Sidebar from './components/Sidebar';
+import Mypage from './pages/Mypage';
 
 const App = (): JSX.Element => {
   return (
     <div className="App">
       <Background>
         <Container>
-          <Header/>
-            <Inner>
-              <Routes>
-                <Route path='/' element={<Login/>}/>
-                <Route path='/signin' element={<Signin/>}/>
-                <Route path='/main' element={<Main/>}/>
-                <Route path='/tips' element={<Tips/>}/>
-                <Route path='/chat' element={<Chat/>}/>
-              </Routes>
-            </Inner>
-          <Sidebar/>
+          <Routes>
+            <Route path='/' element={<Login/>}/>
+            <Route path='/signin' element={<Signin/>}/>
+            <Route path='/main' element={<Main/>}/>
+            <Route path='/tips' element={<Tips/>}/>
+            <Route path='/chat' element={<Chat/>}/>
+            <Route path='/mypage' element={<Mypage/>}/>
+          </Routes>
         </Container>
       </Background>
     </div>
@@ -54,12 +52,6 @@ const Container = styled.div`
   @media (min-width: 992px) {
     margin-right: 10vw;
   }
-`
-const Inner = styled.div`
-  max-width: 720px;
-  width: 500px;
-  height: 100vh;
-  margin: 55px 25px 0 25px;
 `
 
 export default App;

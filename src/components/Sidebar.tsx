@@ -21,7 +21,6 @@ const Item = styled.div`
   justify-content: center;
   align-items: center;
   height: 45px;
-  background: #fff;
   border: none;
 `
 
@@ -35,12 +34,14 @@ const Sidebar = () => {
             <MdOutlineTipsAndUpdates size="24" color="#333" style={{marginTop:'2px'}}/>
           </Link>
         </Item>
-      <Item>
-        <AiOutlineHome size="24" color="#333"/>
-      </Item>
-      <Item>
-        <MdOutlinePersonOutline size="26" color="#333"/>
-      </Item>
+        <Item>
+          <AiOutlineHome size="24" color="#333"/>
+        </Item>
+        <Item>
+          <Link to="/mypage">
+            <MdOutlinePersonOutline size="26" color="#333"/>
+            </Link>
+        </Item>
     </Container>
   )
 }

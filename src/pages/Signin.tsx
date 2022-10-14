@@ -8,12 +8,12 @@ import { addDoc, collection } from 'firebase/firestore';
 
 
 const Container = styled.div`
-    width: 100vw;
-    height: 100vh;
+    height: 80vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: #fff;
 `
 const Title = styled.div`
     text-align: center;
