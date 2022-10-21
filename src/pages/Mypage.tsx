@@ -1,18 +1,20 @@
-import React from "react";
+import React, {useLayoutEffect, useState} from "react";
 import styled from "styled-components"
 import {Link, useNavigate} from 'react-router-dom'
+import { useSelector } from "react-redux";
+import post from '../redux/modules/posts'
 import { auth, db } from '../shared/firebase'
-import { signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut, User } from "firebase/auth";
 
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 
 
 const Inner = styled.div`
-max-width: 720px;
-width: 500px;
-height: 100vh;
-margin: 55px 25px 0 25px;
+  max-width: 720px;
+  width: 500px;
+  height: 100vh;
+  margin: 55px 25px 0 25px;
 `
 const Profile = styled.div`
   height: 80px;
@@ -37,15 +39,17 @@ const Profile_Id = styled.div`
   div:nth-child(1){
     flex-grow: 1;
   }
-  div:nth-child(2){
+  div:nth-child(2),
+  div:nth-child(3){
     display: flex;
-    width: 70px;
+    width: 50px;
     justify-content: center;
     align-items: center;
     border: 1px solid rgba(240,240,240);
     border-radius: 7px;
     color: rgba(180,180,180);
-    font-size: 14px;
+    font-size: 12px;
+    margin-left: 10px;
   }
 `
 const Profile_detail = styled.div`
@@ -55,6 +59,21 @@ const Profile_detail = styled.div`
 
 const Mypage = () => {
   const navigate = useNavigate();
+  const user = auth.currentUser;
+  const [is_login, setIsLogin] = React.useState<boolean>();
+
+  const loginCheck = async(user:User|null) => {
+    if(user){
+      setIsLogin(true)
+    } else {
+      setIsLogin(false)
+    }
+  }
+
+  React.useLayoutEffect(()=> {
+    onAuthStateChanged(auth, loginCheck);
+  }, [])
+
   const Logout = () => {
       signOut(auth).then(()=>{
         alert('로그아웃되었습니다')
@@ -74,7 +93,8 @@ const Mypage = () => {
           </Profile_pic>
           <Profile_txt>
             <Profile_Id>
-              <div>프로필 아이디</div>
+              <div>{user?.email}</div>
+              <div onClick={Logout}>Edit</div>
               <div onClick={Logout}>logout</div>
             </Profile_Id>
             <Profile_detail>

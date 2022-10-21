@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
-
+import PostWidget from '../components/PostWidget';
 
 const Container = styled.div`
   width: 100%;
@@ -24,6 +24,7 @@ const Main = () => {
         <Inner>
           <Container>
             
+            <PostWidget/>  
           </Container>
         </Inner>
       <Sidebar/>

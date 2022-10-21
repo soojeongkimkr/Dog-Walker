@@ -35,7 +35,9 @@ const Sidebar = () => {
           </Link>
         </Item>
         <Item>
-          <AiOutlineHome size="24" color="#333"/>
+          <Link to="/main">
+            <AiOutlineHome size="24" color="#333"/>
+          </Link>
         </Item>
         <Item>
           <Link to="/mypage">

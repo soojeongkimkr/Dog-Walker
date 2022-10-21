@@ -4,14 +4,13 @@ import styled from 'styled-components';
 
 import backgroundillust from './img/backgroundillust.jpg'
 
-import Header from './components/Header';
 import Signin from './pages/Signin';
 import Login from './pages/Login';
 import Tips from './pages/Tips';
 import Chat from './pages/Chat';
 import Main from './pages/Main';
-import Sidebar from './components/Sidebar';
 import Mypage from './pages/Mypage';
+import Write from './pages/Write';
 
 const App = (): JSX.Element => {
   return (
@@ -25,6 +24,7 @@ const App = (): JSX.Element => {
             <Route path='/tips' element={<Tips/>}/>
             <Route path='/chat' element={<Chat/>}/>
             <Route path='/mypage' element={<Mypage/>}/>
+            <Route path='/write' element={<Write/>}/>
           </Routes>
         </Container>
       </Background>

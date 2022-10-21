@@ -8,6 +8,24 @@ import {BsChatDotsFill, BsChatDots} from 'react-icons/bs'
 
 import Geolocation from './Geolocation';
 
+  const Container = styled.div`
+  position: fixed;
+  width: 500px;
+  background: #fff;
+  border-bottom: 1px solid rgba(230, 230, 230);
+`
+const Inner = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 45px;
+  margin: 0 30px;
+`
+const Item = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 
 const Header = () => {
   const link = document.location.href.split("/").reverse()[1];
@@ -24,6 +42,7 @@ const Header = () => {
   React.useEffect(()=> {
     onAuthStateChanged(auth, loginCheck);
   }, [])
+
 
   return(
     <Container>
@@ -48,23 +67,6 @@ const Header = () => {
     </Container>
   )
 }
-const Container = styled.div`
-  position: fixed;
-  width: 500px;
-  background: #fff;
-  border-bottom: 1px solid rgba(230, 230, 230);
-`
-const Inner = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 45px;
-  margin: 0 30px;
-`
-const Item = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
+
 
 export default Header;

@@ -72,7 +72,6 @@ const Login = (): JSX.Element =>{
             const user = await signInWithEmailAndPassword(auth, id.current.value, pw.current.value)
             .then(()=>{
                 navigate('/main')
-                console.log('error')
             })
             .catch((error) => {
                 const errorCode = error.code;
